@@ -1,7 +1,7 @@
 # Boosting Integral-based Human Pose Estimation Through Implicit Heatmap Learning
 
 ## Introduction
-Human pose estimation typically encompasses three categories: heatmap-, regression-, and integral-based methods. While integral-based methods possess advantages such as end-to-end learning, full-convolution learning, and being free from quantization errors, they have garnered comparatively less attention due to inferior performance. In this paper, we revisit integral-based approaches for human pose estimation and propose a novel implicit heatmap learning paradigm, aiming to bridge the performance gap between heatmap- and integral-based methods. Specifically, Simple Implicit Heatmap Normalization (SIHN) is first introduced to calculate implicit heatmaps as an efficient representation for human pose estimation. As implicit heatmaps may introduce potential challenges related to variance and shape ambiguity arising from the inherent nature of implicit heatmaps, we thus propose a Differentiable Spatial-to-Distributive Transform (DSDT) method to aptly map those implicit heatmaps onto the transformation coefficients of a deformed distribution. The deformed distribution is predicted by a likelihood-based generative model to effectively unravel the shape ambiguity quandary, and the transformation coefficients are learned by a regression model to resolve the variance ambiguity issue. Additionally, to expedite the acquisition of precise shape representations throughout the training process, we introduce a Wasserstein distance-based constraint to ensure stable and reasonable supervision during the initial generation of implicit heatmaps. Experimental results on both the MSCOCO, MPII, and CrowdPose datasets demonstrate the effectiveness of our proposed method, achieving competitive performance against heatmap-based approaches while maintaining the advantages of integral-based approaches.
+Human pose estimation typically encompasses three categories: heatmap-, regression-, and integral-based methods. While integral-based methods possess advantages such as end-to-end learning, full-convolution learning, and being free from quantization errors, they have garnered comparatively less attention due to inferior performance. In this paper, we revisit integral-based approaches for human pose estimation and propose a novel implicit heatmap learning paradigm, aiming to bridge the performance gap between heatmap- and integral-based methods. Specifically, Simple Implicit Heatmap Normalization (SIHN) is first introduced to calculate implicit heatmaps as an efficient representation for human pose estimation. As implicit heatmaps may introduce potential challenges related to variance and shape ambiguity arising from the inherent nature of implicit heatmaps, we thus propose a Differentiable Spatial-to-Distributive Transform (DSDT) method to aptly map those implicit heatmaps onto the transformation coefficients of a deformed distribution. The deformed distribution is predicted by a likelihood-based generative model to unravel the shape ambiguity quandary effectively, and the transformation coefficients are learned by a regression model to resolve the variance ambiguity issue. Additionally, to expedite the acquisition of precise shape representations throughout the training process, we introduce a Wasserstein distance-based constraint to ensure stable and reasonable supervision during the initial generation of implicit heatmaps. Experimental results on both the MSCOCO and MPII datasets demonstrate the effectiveness of our proposed method, achieving competitive performance against heatmap-based approaches while maintaining the advantages of integral-based approaches.
 
 ## Main Results
 ### Results on COCO val2017
@@ -62,23 +62,6 @@ The code is developed using python 3.7, torch 1.10, torchvision 0.11 on cuda 11.
                     │-- 000000000632.jpg
                     │-- ...
 
-**For [CrowdPose](https://github.com/Jeff-sjtu/CrowdPose) data**, please download from [CrowdPose](https://github.com/Jeff-sjtu/CrowdPose). Please download the annotation files and human detection results from [crowdpose_annotations](https://download.openmmlab.com/mmpose/datasets/crowdpose_annotations.tar). Download and extract them under {POSE_ROOT}/data, and make them look like this:
-
-    ${POSE_ROOT}
-    |-- data
-    `-- │-- crowdpose
-        `-- │-- annotations
-            │   │-- mmpose_crowdpose_train.json
-            │   │-- mmpose_crowdpose_val.json
-            │   │-- mmpose_crowdpose_trainval.json
-            │   │-- mmpose_crowdpose_test.json
-            │   │-- det_for_crowd_test_0.1_0.5.json
-            `--  images
-                │-- 100000.jpg
-                │-- 100001.jpg
-                │-- 100002.jpg
-                │-- ...
-
 **For [MPII](http://human-pose.mpi-inf.mpg.de/) data**, please download from [MPII Human Pose Dataset](http://human-pose.mpi-inf.mpg.de/). We have converted the original annotation files into json format, please download them from [mpii_annotations](https://download.openmmlab.com/mmpose/datasets/mpii_annotations.tar). Extract them under {POSE_ROOT}/data, and make them look like this:
 
     ${POSE_ROOT}
@@ -102,9 +85,11 @@ Download pretrained models and our well-trained models from [Google Drive](https
 
     ${POSE_ROOT}
     |-- work_dir       
-    `-- |-- |-- IHL_COCO.pth
-            |-- IHL_CrowdPose.pth
-            `-- IHL_MPII.pth
+    `-- |-- |-- IHL_COCO_HRNet32.pth
+            |-- IHL_COCO_ResNet101.pth
+            |-- IHL_COCO_ResNet50.pth
+            |-- IHL_MPII_HRNet32.pth
+            `-- IHL_MPII_ResNet50.pth
 
 ### Prepare the environment
 
